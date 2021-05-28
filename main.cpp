@@ -8,6 +8,7 @@ using namespace std;
 string username;
 string categories[] = { "Foods", "Health", "Transportation", "Entertainment", "Savings", "Groceries", "Gas", "Giving" };
 
+int categories_length = sizeof(categories) / sizeof(categories[0]);
 int balance = 0;
 int income = 0;
 int outcome = 0;
@@ -63,7 +64,6 @@ void MainMenu(string username){
 
 
 void InputIncome(){
-    int categories_length = sizeof(categories) / sizeof(categories[0]);
     int input_income;
     string input_category;
     
@@ -108,7 +108,47 @@ void InputIncome(){
 
 void InputOutcome(){
     int input_outcome;
-    // string category;
+    string input_category;
+
+    while(true){
+        cout << "Enter your outcome (in rupiah) : " ; cin >> input_outcome;
+        
+        cout << input_outcome << endl;
+
+        if(input_outcome <= 0){
+            cout << "The number you entered is less than 0. Make sure you enter your outcome correctly." << endl;
+            continue;
+        }
+
+        if(input_outcome > balance){
+            cout << "The number you entered is more than your balance. Make sure you enter your outcome correctly." << endl;
+            continue;
+        }
+
+        cout << "Categories that already defined : ";
+        for(int i = 0; i < categories_length; i++){
+            if(i == categories_length-1){
+                cout << categories[i] << ".";
+            }else{
+                cout << categories[i] << ", ";
+            }
+        }
+
+        cout << endl;
+        cout << "Enter one category/new category name : "; cin >> input_category;
+       
+        cout << input_outcome << endl;
+
+        outcome += input_outcome;
+        balance += input_outcome;
+
+        cout << "Your outcome added!" << endl;
+
+        cout << "Now, your outcome is " << outcome << " and your balance is " << balance << endl;
+        MainMenu(username);
+        break;
+
+    };
 }
 
 void History(){
